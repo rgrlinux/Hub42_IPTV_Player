@@ -36,33 +36,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadChannels() {
-        // 1. Mostra a animação de carregamento e esconde os botões (opcional)
         binding.loadingAnimation.visibility = View.VISIBLE
         binding.loadingAnimation.playAnimation()
-
-        // 2. Inicia uma Coroutine no thread de IO (Background)
-        // Isso é VITAL para não travar o Android 7 com 100k linhas
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                // Abre o arquivo dos assets
                 val inputStream = assets.open("teste.m3u")
                 val content = inputStream.bufferedReader().use { it.readText() }
-
-                // Faz o parse da lista usando seu M3UParser
                 val channels = M3UParser.parse(content)
-
-                // 3. Volta para o thread principal (Main) para atualizar a tela
                 withContext(Dispatchers.Main) {
                     binding.loadingAnimation.cancelAnimation()
                     binding.loadingAnimation.visibility = View.GONE
-
                     Toast.makeText(
                         this@MainActivity,
                         "Sucesso! ${channels.size} canais carregados.",
                         Toast.LENGTH_LONG
                     ).show()
-
-                    // Aqui você chamaria a próxima tela passando a lista de canais
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
