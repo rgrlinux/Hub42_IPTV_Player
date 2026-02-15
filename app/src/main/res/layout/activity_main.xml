@@ -2,19 +2,19 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:auto="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#140505"
     android:padding="20dp">
 
-    <TextView
-        android:id="@+id/txtLogo"
+    <ImageView
+        android:id="@+id/imgLogo"
         android:layout_width="120dp"
         android:layout_height="50dp"
-        android:background="@drawable/border_cyan"
-        android:gravity="center"
-        android:text="LOGO"
-        android:textColor="#00FFFF"
+        android:padding="8dp"
+        android:src="@drawable/ic_hub42"
+        android:scaleType="fitStart"
         auto:layout_constraintStart_toStartOf="parent"
         auto:layout_constraintTop_toTopOf="parent" />
 
@@ -22,59 +22,73 @@
         android:id="@+id/containerClock"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:background="@drawable/border_cyan"
         android:orientation="horizontal"
-        android:padding="5dp"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="15dp"
         auto:layout_constraintEnd_toStartOf="@+id/btnUser"
-        auto:layout_constraintStart_toEndOf="@+id/txtLogo"
+        auto:layout_constraintStart_toEndOf="@+id/imgLogo"
         auto:layout_constraintTop_toTopOf="parent">
 
-        <TextView
+        <TextClock
             android:id="@+id/txtDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Segunda\n11 Fevereiro"
+            android:format12Hour="EEEE\ndd MMMM"
+            android:format24Hour="EEEE\ndd MMMM"
             android:textColor="#00FFFF"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:textAllCaps="true"
+            android:lineSpacingExtra="2dp" />
 
         <View
-            android:layout_width="2dp"
-            android:layout_height="match_parent"
-            android:layout_marginHorizontal="10dp"
-            android:background="#66FFFFFF" />
+            android:layout_width="1dp"
+            android:layout_height="30dp"
+            android:layout_marginHorizontal="12dp"
+            android:background="#4D00FFFF" />
 
-        <TextView
+        <TextClock
             android:id="@+id/txtTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="20:22"
+            android:format12Hour="HH:mm"
+            android:format24Hour="HH:mm"
             android:textColor="#00FFFF"
             android:textSize="24sp"
             android:textStyle="bold" />
     </LinearLayout>
 
-    <TextView
+    <ImageView
         android:id="@+id/btnUser"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/border_cyan_circle"
-        android:gravity="center"
-        android:text="user"
-        android:textColor="#00FFFF"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:padding="8dp"
+        android:src="@drawable/baseline_live_tv_24"
+        app:tint="#00FFFF"
         auto:layout_constraintEnd_toEndOf="parent"
-        auto:layout_constraintTop_toTopOf="parent" />
+        auto:layout_constraintTop_toTopOf="parent"
+        auto:layout_constraintBottom_toBottomOf="@+id/containerClock" />
 
-    <TextView
-        android:id="@+id/textView2"
+    <EditText
+        android:id="@+id/edtSearch"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:background="@drawable/border_cyan"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="O que a baby quer ver hoje?"
+        android:background="@drawable/bg_card_selector"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center_vertical"
+        android:padding="12dp"
+        android:hint="O que a baby quer ver hoje?"
+        android:textColorHint="#6600FFFF"
         android:textColor="#00FFFF"
         android:textSize="18sp"
+        android:textStyle="bold"
+        android:inputType="text"
+        android:maxLines="1"
+        android:imeOptions="actionSearch"
+        android:drawableStart="@android:drawable/ic_menu_search"
+        android:drawablePadding="10dp"
+        android:drawableTint="#00FFFF"
         auto:layout_constraintEnd_toEndOf="parent"
         auto:layout_constraintStart_toStartOf="parent"
         auto:layout_constraintTop_toBottomOf="@+id/containerClock" />
@@ -86,79 +100,96 @@
         android:gravity="center"
         android:orientation="horizontal"
         android:weightSum="3"
-        auto:layout_constraintBottom_toTopOf="@+id/txtStatus"
-        auto:layout_constraintTop_toBottomOf="@+id/textView2">
+        auto:layout_constraintBottom_toTopOf="@+id/txtStatus">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/btnLiveTv"
             android:layout_width="0dp"
             android:layout_height="180dp"
-            android:layout_margin="10dp"
+            android:layout_margin="8dp"
             android:layout_weight="1"
-            auto:cardBackgroundColor="#081a1e"
             android:focusable="true"
-            android:clickable="true">
-            <TextView
+            android:clickable="true"
+            android:focusableInTouchMode="true"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardElevation="0dp">
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="Live TV"
-                android:textColor="#00FFFF" />
+                android:background="@drawable/bg_card_selector"
+                android:padding="8dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Live TV"
+                    android:textColor="#00FFFF" />
+            </FrameLayout>
         </androidx.cardview.widget.CardView>
+
         <androidx.cardview.widget.CardView
             android:id="@+id/btnMovies"
             android:layout_width="0dp"
             android:layout_height="180dp"
-            android:layout_margin="10dp"
+            android:layout_margin="8dp"
             android:layout_weight="1"
-            auto:cardBackgroundColor="#081a1e"
             android:focusable="true"
-            android:clickable="true">
-            <TextView
+            android:clickable="true"
+            android:focusableInTouchMode="true"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardElevation="0dp">
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="Filmes"
-                android:textColor="#00FFFF" />
+                android:background="@drawable/bg_card_selector"
+                android:padding="8dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Filmes"
+                    android:textColor="#00FFFF" />
+            </FrameLayout>
         </androidx.cardview.widget.CardView>
+
         <androidx.cardview.widget.CardView
             android:id="@+id/btnSeries"
             android:layout_width="0dp"
             android:layout_height="180dp"
-            android:layout_margin="10dp"
+            android:layout_margin="8dp"
             android:layout_weight="1"
-            auto:cardBackgroundColor="#081a1e"
             android:focusable="true"
-            android:clickable="true">
-            <TextView
+            android:clickable="true"
+            android:focusableInTouchMode="true"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardElevation="0dp">
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="Séries"
-                android:textColor="#00FFFF" />
+                android:background="@drawable/bg_card_selector"
+                android:padding="8dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Séries"
+                    android:textColor="#00FFFF" />
+            </FrameLayout>
         </androidx.cardview.widget.CardView>
-
     </LinearLayout>
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/loadingAnimation"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:visibility="gone"
-        auto:lottie_rawRes="@raw/loading"
-        auto:layout_constraintBottom_toBottomOf="parent"
-        auto:layout_constraintEnd_toEndOf="parent"
-        auto:layout_constraintStart_toStartOf="parent"
-        auto:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txtStatus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="15dp"
         android:background="@drawable/border_cyan"
-        android:padding="5dp"
-        android:text="espaço livre para informações tipo senha expirada..."
-        android:textColor="#00FFFF"
+        android:padding="8dp"
+        android:gravity="center"
+        android:text="Sem notificações pendentes"
+        android:textColor="#B300FFFF"
+        android:textSize="12sp"
         auto:layout_constraintBottom_toTopOf="@+id/txtMac" />
 
     <TextView
@@ -166,9 +197,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/border_cyan"
-        android:padding="5dp"
-        android:text="macadress: 00:00:00..."
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="5dp"
+        android:text="MAC: 00:00:00:00:00"
         android:textColor="#00FFFF"
+        android:textSize="12sp"
         auto:layout_constraintBottom_toBottomOf="parent"
         auto:layout_constraintStart_toStartOf="parent" />
 
@@ -177,10 +210,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/border_cyan"
-        android:padding="5dp"
-        android:text="link para site"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="5dp"
+        android:text="WWW.HUB42.COM"
         android:textColor="#00FFFF"
+        android:textSize="12sp"
         auto:layout_constraintBottom_toBottomOf="parent"
         auto:layout_constraintEnd_toEndOf="parent" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/loadingAnimation"  android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:visibility="gone"
+        auto:lottie_rawRes="@raw/splash_loading"
+        auto:layout_constraintBottom_toBottomOf="parent"
+        auto:layout_constraintEnd_toEndOf="parent"
+        auto:layout_constraintStart_toStartOf="parent"
+        auto:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
